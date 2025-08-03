@@ -1,14 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <meta charset="UTF-8" />
+    <title>Jokenpo Corrigido</title>
+    <style>
+        .result p {
+            color: black;
+            background-color: rgb(82, 215, 75);
+            min-height: 1.5em;
+            margin: 5px 0;
+            padding: 4px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Game - Rock, Paper and scissors</h1>
+    <h1>Rock, Paper, Scissors. </h1>
+
+    <div class="buttons">
+        <button>Paper</button>
+        <button>Rock</button>
+        <button>Scissors</button>
+    </div>
+
+    <div class="result">
+        <p class="message"></p> <!-- Mensagem de resultado da rodada -->
+        <p class="score"></p> <!-- Placar -->
+        <p class="choices"></p> <!-- Escolhas -->
+    </div>
+
     <script src="app.js"></script>
 </body>
 

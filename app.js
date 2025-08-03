@@ -1,52 +1,53 @@
-function getHumanChoice(){
-    const humanChoice = prompt("choose (rock, paper, scissors)");
-    return humanChoice.toLowerCase();
-}
+// inside here: code that will run only after the page is ready
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.buttons button');
+  const message = document.querySelector('.message');
+  const score = document.querySelector('.score');
+  const choices = document.querySelector('.choices');
 
-function getComputerChoice(){
-    const options = [ "rock", "paper" , "scissors"];
-    let choiceRandom = Math.floor(Math.random()*3);
-    return options[choiceRandom];
-    
-}
+  let scoreHuman = 0;
+  let scorePc = 0;
 
+  function getComputerChoice() {
+    const options = ['rock', 'paper', 'scissors'];
+    return options[Math.floor(Math.random() * options.length)];
+  }
 
+  function playRound(humanSelected, computerSelected) {
+    choices.textContent = `Choice human: ${humanSelected} | Choice PC: ${computerSelected}`;
 
-let scoreHuman =0;
-let scorePc = 0;
-
-function playRound(humanSelected , computerSelected){
-    if(humanSelected == computerSelected){
-        console.log("Empate")
-        console.log("PC:"+computerSelected + " Human: "+ humanSelected);
-// human wins
-    }else if(
-        (humanSelected =='rock' && computerSelected== 'scissors') ||
-        (humanSelected =='scissors' && computerSelected== 'paper')||
-        (humanSelected =='paper' && computerSelected== 'rock')
-    ){
-        scoreHuman++;
-        console.log("Human Wins: " +scoreHuman+ "Points");
-        console.log("PC:"+computerSelected + " Human: "+ humanSelected);
-        
-    }else{
-        scorePc++;
-        console.log("Pc Wins :" +scorePc+ "Points")
-        console.log("PC:"+computerSelected + " Human: "+ humanSelected);
-        
+    if (humanSelected === computerSelected) {
+      message.textContent = "Empate";
+    } else if (
+      (humanSelected === 'rock' && computerSelected === 'scissors') ||
+      (humanSelected === 'scissors' && computerSelected === 'paper') ||
+      (humanSelected === 'paper' && computerSelected === 'rock')
+    ) {
+      scoreHuman++;
+      message.textContent = "Human wins";
+    } else {
+      scorePc++;
+      message.textContent = "PC wins";
     }
 
-}
+    score.textContent = `Score human: ${scoreHuman} | Score PC: ${scorePc}`;
 
+    if (scoreHuman === 5) {
+      message.textContent = "🎉 Human Wins the Game! 🎉";
+      disableButtons();
+    } else if (scorePc === 5) {
+      message.textContent = "💻 PC Wins the Game! 💻";
+      disableButtons();
+    }
+  }
 
-while(scoreHuman <5 || scorePc <5){
-    let humanSelected = getHumanChoice();
-    let computerSelected = getComputerChoice();
-    playRound(humanSelected, computerSelected);
+  function disableButtons() {
+    buttons.forEach(button => button.disabled = true);
+  }
 
-}
-if(scoreHuman ===5){
-    console.log('Human Wins');
-}else{
-    console.log('PC wins')
-}
+  buttons.forEach(button => {
+    button.addEventListener('click', e => {
+      playRound(e.target.textContent.toLowerCase(), getComputerChoice());
+    });
+  });
+});
